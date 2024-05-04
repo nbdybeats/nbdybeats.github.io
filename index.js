@@ -2,10 +2,33 @@ var descriptions;
 
 var baseUrl;
 
+var loopMode = 'next';
+
 if (window.location.href.includes('nbdybeats.com')) {
     baseUrl = "https://nbdybeats.com";
 } else {
     baseUrl = "https://nbdybeats.github.io";
+}
+
+function setLoopAll() {
+    loopMode = 'next';
+    document.getElementById('loop-all-btn').disabled = true;
+    document.getElementById('loop-one-btn').disabled = false;
+    document.getElementById('loop-off-btn').disabled = false;
+}
+
+function setLoopOne() {
+    loopMode = 'same';
+    document.getElementById('loop-all-btn').disabled = false;
+    document.getElementById('loop-one-btn').disabled = true;
+    document.getElementById('loop-off-btn').disabled = false;
+}
+
+function setLoopOff() {
+    loopMode = '';
+    document.getElementById('loop-all-btn').disabled = false;
+    document.getElementById('loop-one-btn').disabled = false;
+    document.getElementById('loop-off-btn').disabled = true;
 }
 
 function changeTrack() {
@@ -90,6 +113,24 @@ function generateLink() {
 
     copyLink();
 }
+
+var player = document.getElementById('audio-player');
+player.onended = function () {
+    if (loopMode === 'next') {
+        var musicSelector = document.getElementById('music-selector');
+        var selectedTrack = musicSelector.value;
+
+        console.log(`${selectedTrack} ended.`);
+        var tracklist = Object.keys(descriptions);
+        var selectedIndex = tracklist.indexOf(selectedTrack);
+        var nextTrack = tracklist[(selectedIndex+1)%tracklist.length];
+        console.log(`playing ${nextTrack} now.`);
+        musicSelector.value = nextTrack;
+        changeTrack();
+    } else if (loopMode === 'same') {
+        player.play();
+    }
+};
 
 document.addEventListener('DOMContentLoaded', function() {
     function getParameterByName(name, url = window.location.href) {

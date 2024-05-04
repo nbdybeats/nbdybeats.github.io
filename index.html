@@ -33,7 +33,6 @@
                     <option value="" selected disabled hidden>
                         Choose a beat
                     </option>
-                    <option value="oracle of ages">oracle of ages</option>
                     <option value="when do we get paid">
                         when do we get paid
                     </option>
@@ -51,13 +50,25 @@
                         swisher sweet swill
                     </option>
                     <option value="kaelin live pack">kaelin live pack</option>
-
+                    <option value="oracle of ages">oracle of ages</option>
                 </select>
 
-                <audio id="audio-player" controls loop autoplay>
+                <audio id="audio-player" controls autoplay>
                     <source type="audio/mp3"></source>
                     Your browser does not support the audio element.
                 </audio>
+            </div>
+
+            <div id="loop-controls">
+                <button id="loop-all-btn" disabled onclick="setLoopAll()">
+                    loop all
+                </button>
+                <button id="loop-one-btn" onclick="setLoopOne()">
+                    loop one
+                </button>
+                <button id="loop-off-btn" onclick="setLoopOff()">
+                    loop off
+                </button>
             </div>
 
             <div id="share-box">
@@ -66,7 +77,7 @@
                     onclick="generateLink()"
                     style="display: none; cursor: pointer;"
                 >
-                    Share
+                    click to share this beat
                 </button>
                 <input
                     type="text"

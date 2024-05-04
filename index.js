@@ -2,7 +2,7 @@ var descriptions;
 
 var baseUrl;
 
-if (window.location.href.contains('nbdybeats.com')) {
+if (window.location.href.includes('nbdybeats.com')) {
     baseUrl = "https://nbdybeats.com";
 } else {
     baseUrl = "https://nbdybeats.github.io";

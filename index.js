@@ -1,5 +1,12 @@
 var descriptions;
-var baseUrl = "https://nbdybeats.github.io";
+
+var baseUrl;
+
+if (window.location.href.contains('nbdybeats.com')) {
+    baseUrl = "https://nbdybeats.com";
+} else {
+    baseUrl = "https://nbdybeats.github.io";
+}
 
 function changeTrack() {
     var linkDisplay = document.getElementById('link-display');

@@ -1,11 +1,79 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nbdybeatsdotcom</title>
+<link rel="stylesheet" href="./index.css"></link>
+</head>
 
-    <main>
-        <h1>Hello, world!</h1>
+<body>
+    <header>
+        <div class="container">
+            <img id="profile-pic" src="assets/guts.jpg" alt="Profile Image">
+            <h2>nbdybeats</h2>
+            <p id="subheader">
+                <a href="https://x.com/@polyaudios">x</a> |
+                <a href="https://tiktok.com/@nbdybeats">tiktok</a> |
+                <a href="https://youtube.com/@nbdybeats">youtube</a>
+            </p>
+            <p id="subheader">
+                nonprofit personal music not for commercial consumption
+            </p>
+        </div>
+        <div id="message-of-the-day">
+            m.o.t.d.<br/>try headphones
+        </div>
+    </header>
 
-        <p>nobody can do it</p>
-        <p>becomes</p>
-        <p>anybody can do it</p>
-    </main>
+    <div class="container">
+        <div id="music-player-window">
+            <div class="youtube-container">
+                <select id="music-selector" onchange="changeTrack()">
+                    <option value="" selected disabled hidden>
+                        Choose a beat
+                    </option>
 
+                    <option value="clairconveyance">clairconveyance</option>
+
+                </select>
+
+                <audio id="audio-player" controls loop autoplay>
+                    <source type="audio/mp3"></source>
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <div id="share-box">
+                <button
+                    id="share-beat-btn"
+                    onclick="generateLink()"
+                    style="display: none; cursor: pointer;"
+                >
+                    Share
+                </button>
+                <input
+                    type="text"
+                    id="link-display"
+                    readonly
+                    style="display: none;"
+                    onclick="copyLink()"
+                >
+                <div id="notification" style="display: none;">
+                    Link copied to clipboard!
+                </div>
+            </div>
+
+            <div class="track-comments">
+                <h4 id="desc-title">&lt;nbdy says&gt;</h4>
+                <p id='beat-description'>Choose a beat and <b>press play</b></p>
+                <h4 id="desc-title" style="text-align: right;">
+                    &lt;/nbdy says&gt;
+                </h4>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
 </html>

@@ -2,6 +2,7 @@ body {
     background-color: #121212;
     color: #cccccc;
     font-family: Arial, sans-serif;
+    font-family: "Lucida Console", "Courier New", monospace;
     min-height: 100vh;
     margin: 0;
     background-image: repeating-linear-gradient(
@@ -11,15 +12,28 @@ body {
         rgba(0,0,0,0.1) 100px,
         rgba(0,0,0,0.1) 120px
     );
-    font-family: 'Arial', sans-serif;
     color: #333;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
-.container { width: 80%; margin: auto; overflow: hidden; }
+
+.container {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 90vw;
+    margin: auto;
+    overflow: hidden;
+}
+
 header {
     background: #333;
     color: #00aaff;
-    padding-top: 30px;
+    padding: 8px;
+    margin: 4px;
     min-height: 70px;
     border-image: linear-gradient(to right, #0779e4, #79bdfc);
     border-width: 3px;
@@ -28,7 +42,6 @@ header {
     border-top: none;
     border-right: none;
     border-left: none;
-    margin-bottom: 24px;
     background-image: repeating-linear-gradient(
         180deg,
         transparent,
@@ -39,23 +52,29 @@ header {
 }
 
 #message-of-the-day {
-    position: fixed;
+    position: absolute;
     top: 0px;
     right: 0px;
     padding: 8px;
     width: 100px;
     font-size: 8pt;
     text-align: right;
+    color: #79bdfc;
 }
 
 #subheader { color: #cccccc; }
-#profile-pic { height: 69px; width: 69px; border-radius: 50%; }
+
+#profile-pic {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    border: 2px solid #cccccc;
+}
 
 #music-selector {
     padding: 10px;
     background-color: #222;
     color: #fff;
-    margin-bottom: 16px;
     height: 48px;
     width: 100%;
     font-size: 18px;
@@ -63,38 +82,34 @@ header {
     border-radius: 8px;
 }
 
-.youtube-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    text-align: center;
-    /* margin-top: 2vh; */
-}
-
-#youtube-player {
-    width: 100%;
-    height: 100%;
-    max-width: 640px;
-    max-height: 360px;}
-
-audio { width: 100%;  max-width: 640px; }
+#audio-player { height: 0px; width: 0px; display: none; }
 
 #loop-controls {
     display: flex;
-    margin-top:8px;
     justify-content: space-evenly;
     width: 100%;
     gap: 8px;
-    max-width: 640px;
+    max-width: 480px;
 }
 
-#loop-all-btn {
+#loop-btn {
     cursor: pointer;
     height: 24px;
     width: 100%;
     border-radius: 16px;
     border: none;
+    background-color: #333333;
+    color: #cccccc;
+}
+
+#loop-btn:disabled {
+    cursor: auto;
+    height: 24px;
+    width: 100%;
+    border-radius: 16px;
+    border: none;
+    background-color: #222222;
+    color: #000000;
 }
 
 #loop-one-btn {
@@ -103,6 +118,8 @@ audio { width: 100%;  max-width: 640px; }
     width: 100%;
     border-radius: 16px;
     border: none;
+    background-color: #333333;
+    color: #cccccc;
 }
 
 #loop-off-btn {
@@ -111,6 +128,8 @@ audio { width: 100%;  max-width: 640px; }
     width: 100%;
     border-radius: 16px;
     border: none;
+    background-color: #333333;
+    color: #cccccc;
 }
 
 .track-comments {
@@ -118,7 +137,6 @@ audio { width: 100%;  max-width: 640px; }
     padding: 16px;
     max-width: 640px;
     width: 100%;
-    margin-top: 10px;
     box-sizing: border-box;
     border-radius: 16px;
 }
@@ -146,7 +164,7 @@ audio { width: 100%;  max-width: 640px; }
     border-radius: 16px;
 }
 #visitor-counter { color: #00aaff; }
-#track-title { margin-bottom: 8px; }
+
 #chooseBeatBtn {
     color: #00aaff;
     background-color: #cccccc;
@@ -159,7 +177,6 @@ audio { width: 100%;  max-width: 640px; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8px;
     width: 100%;
     max-width: 640px;
 }
@@ -215,3 +232,129 @@ a { color: #ddd; }
 a:visited { color: #777; }
 
 @media (max-width: 600px) { audio { height: 50px; } }
+
+#player {
+    width: 100%;
+    max-width: 480px;
+    height: 160px;
+    border-radius: 32px;
+    background-color: #333333bb;
+}
+
+#player-track-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+}
+
+#player-track-icon {
+    display: flex;
+    background-color: #cccccc;
+    border-radius: 8px;
+    height: 48px;
+    width: 48px;
+}
+
+#player-track-title {
+    color: #cccccc;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#player-seeker {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#player-seeker-time {
+    display: flex;
+    color: #cccccc;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 8pt;
+    width: 10%;
+    max-width: 40px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+#player-seeker-bar {
+    width: 80%;
+    max-width: 400px;
+    height: 8px;
+    background-color: #cccccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#player-seeker-bar-fill {
+    width: 0%;
+    height: 8px;
+    background-color: #00aaff;
+    border-radius: 4px;
+}
+
+#player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+#player-control-pause {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+        background-color: #222;
+        border-radius: 8px;
+    }
+
+    display: none;
+}
+
+#player-ctl-bar {
+    width: 8px;
+    height: 32px;
+    background: linear-gradient(0deg, #CCCCCC, #CCCCCC), #CCCCCC;
+    border-radius: 2px;
+}
+
+#player-control-play {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    &:hover {
+        background-color: #222;
+        border-radius: 8px;
+    }
+}
+
+#player-ctl-triangle {
+    /* width: 32px;
+    height: 32px;
+    background: #CCCCCC;
+    transform: rotate(-30deg); */
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 24px solid #CCCCCC;
+
+    border-radius: 2px;
+}

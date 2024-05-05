@@ -1,105 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nbdybeatsdotcom</title>
-<link rel="stylesheet" href="./index.css"></link>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">nbdybeatsdotcom</title>
+    <link rel="stylesheet" href="./index.css"></link>
 </head>
 
 <body>
     <header>
-        <div class="container">
+        <div style="display: flex; gap: 8px; align-items: center;">
             <img id="profile-pic" src="assets/guts.jpg" alt="Profile Image">
             <h2>nbdybeats</h2>
-            <p id="subheader">
-                <a href="https://x.com/@polyaudios">x</a> |
-                <a href="https://tiktok.com/@nbdybeats">tiktok</a> |
-                <a href="https://youtube.com/@nbdybeats">youtube</a> |
-                <a href="https://github.com/nbdybeats">github</a>
-            </p>
-            <p id="subheader">
-                nonprofit personal music not for commercial consumption
-            </p>
         </div>
+        <p id="subheader">
+            <a href="https://x.com/@polyaudios">x</a> |
+            <a href="https://tiktok.com/@nbdybeats">tiktok</a> |
+            <a href="https://youtube.com/@nbdybeats">youtube</a> |
+            <a href="https://github.com/nbdybeats">github</a>
+        </p>
+        <p id="subheader">
+            nonprofit personal music not for commercial consumption
+        </p>
         <div id="message-of-the-day">
-            m.o.t.d.<br/>try headphones
+            m.o.t.d.<br/>seek not a life of imitation
         </div>
     </header>
 
     <div class="container">
-        <div id="music-player-window">
-            <div class="youtube-container">
-                <select id="music-selector" onchange="changeTrack()">
-                    <option value="" selected disabled hidden>
-                        Choose a beat
-                    </option>
-                    <option value="when do we get paid">
-                        when do we get paid
-                    </option>
-                    <option value="water">water</option>
-                    <option value="rise of the phoenix">
-                        rise of the phoenix
-                    </option>
-                    <option value="delivery of dream destiny">
-                        delivery of dream destiny
-                    </option>
-                    <option value="kakarot">kakarot</option>
-                    <option value="clairconveyance">clairconveyance</option>
-                    <option value="every single day">every single day</option>
-                    <option value="swisher sweet swill">
-                        swisher sweet swill
-                    </option>
-                    <option value="kaelin live pack">kaelin live pack</option>
-                    <option value="oracle of ages">oracle of ages</option>
-                </select>
-
-                <audio id="audio-player" controls autoplay>
-                    <source type="audio/mp3"></source>
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-
-            <div id="loop-controls">
-                <button id="loop-all-btn" disabled onclick="setLoopAll()">
-                    loop all
-                </button>
-                <button id="loop-one-btn" onclick="setLoopOne()">
-                    loop one
-                </button>
-                <button id="loop-off-btn" onclick="setLoopOff()">
-                    loop off
-                </button>
-            </div>
-
-            <div id="share-box">
-                <button
-                    id="share-beat-btn"
-                    onclick="generateLink()"
-                    style="display: none; cursor: pointer;"
-                >
-                    click to share this beat
-                </button>
-                <input
-                    type="text"
-                    id="link-display"
-                    readonly
-                    style="display: none;"
-                    onclick="copyLink()"
-                >
-                <div id="notification" style="display: none;">
-                    Link copied to clipboard!
+        <div id="player">
+            <div id="player-track-info">
+                <div id="player-track-icon">
+                    <img src="favicon.ico"></img>
+                </div>
+                <div id="player-track-title">
+                    <span id="track-title-0">----- -- ----</span>
                 </div>
             </div>
 
-            <div class="track-comments">
-                <h4 id="desc-title">&lt;nbdy says&gt;</h4>
-                <p id='beat-description'>Choose a beat and <b>press play</b></p>
-                <h4 id="desc-title" style="text-align: right;">
-                    &lt;/nbdy says&gt;
-                </h4>
+            <div id="player-seeker">
+                <div id="player-seeker-time">
+                    <span id="seeker-time-current">0:00</span>
+                </div>
+                <div id="player-seeker-bar">
+                    <div id="player-seeker-bar-fill">
+                    </div>
+                </div>
+                <div id="player-seeker-time">
+                    <span id="seeker-time-remaining">-0:00</span>
+                </div>
+            </div>
+
+            <div id="player-controls">
+                <div id="player-control-btn">
+                    <button id="player-control-pause" onclick="player.pause()">
+                        <div id="player-ctl-bar">
+                        </div>
+                        <div id="player-ctl-bar">
+                        </div>
+                    </button>
+                    <button id="player-control-play" disabled onclick="player.play()">
+                        <div id="player-ctl-triangle">
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
+
+        <div id="loop-controls">
+            <button class="loop-all-btn" id="loop-btn" disabled onclick="setLoopMode('all')">
+                loop all
+            </button>
+            <button class="loop-one-btn" id="loop-btn" onclick="setLoopMode('one')">
+                loop one
+            </button>
+            <button class="loop-off-btn" id="loop-btn" onclick="setLoopMode(undefined)">
+                loop off
+            </button>
+        </div>
+
+        <div id="share-box">
+            <button
+                id="share-beat-btn"
+                onclick="generateLink()"
+                style="display: none; cursor: pointer;"
+            >
+                click to share this beat
+            </button>
+            <input
+                type="text"
+                id="link-display"
+                readonly
+                style="display: none;"
+                onclick="copyLink()"
+            >
+            <div id="notification" style="display: none;">
+                Link copied to clipboard!
+            </div>
+        </div>
+
+        <select id="music-selector" onclick="player.play()" onchange="changeTrack()">
+            <option value="" selected disabled hidden>
+                Choose a beat
+            </option>
+            <option value="when do we get paid">
+                when do we get paid
+            </option>
+            <option value="water">water</option>
+            <option value="rise of the phoenix">
+                rise of the phoenix
+            </option>
+            <option value="delivery of dream destiny">
+                delivery of dream destiny
+            </option>
+            <option value="kakarot">kakarot</option>
+            <option value="clairconveyance">clairconveyance</option>
+            <option value="every single day">every single day</option>
+            <option value="swisher sweet swill">
+                swisher sweet swill
+            </option>
+            <option value="kaelin live pack">kaelin live pack</option>
+            <option value="oracle of ages">oracle of ages</option>
+        </select>
+
+        <div class="track-comments">
+            <h4 id="desc-title">&lt;nbdy says&gt;</h4>
+            <p id='beat-description'>Choose a beat and <b>share it</b></p>
+            <h4 id="desc-title" style="text-align: right;">
+                &lt;/nbdy says&gt;
+            </h4>
+        </div>
+
+        <audio id="audio-player" controls>
+            <source type="audio/mp3"></source>
+        </audio>
     </div>
 
     <script src="index.js"></script>
